@@ -16,4 +16,8 @@ docker compose up -d
 4.- Correr el proyecto en modo de desarrollo
 ```
 yarn start:dev
-``` 
+```
+5.- Correr el seed de la base de datos 
+```
+http://localhost:3000/api/seed
+```
