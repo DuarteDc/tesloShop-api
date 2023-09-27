@@ -22,7 +22,7 @@ export class FilesController {
   uploadProductImage(@UploadedFile() file: Express.Multer.File) {
     if (!file) throw new BadRequestException('File is required or extension file is not valid');
 
-    const secureUrl = `${this.configService.get('HOST_API')}/files/products/${file.filename}`;
+    const secureUrl = `${ this.configService.get('HOST_API') }/files/products/${ file.filename }`;
 
     return { secureUrl }
   }
