@@ -43,6 +43,6 @@ import { JWTStrategy } from './strategies/jwt.strategy';
     //   }
     // })
   ],
-  exports: [ JWTStrategy, PassportModule, JwtModule ]
+  exports: [ TypeOrmModule, JWTStrategy, PassportModule, JwtModule ]
 })
 export class AuthModule {}

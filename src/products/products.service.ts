@@ -11,6 +11,8 @@ import { PaginationDto } from 'src/common/dtos/pagination.dto';
 
 import { ProductImage, Product } from './entities';
 
+import { User } from 'src/auth/entities/user.entity';
+
 @Injectable()
 export class ProductsService {
 
@@ -22,13 +24,14 @@ export class ProductsService {
     private readonly dataSource: DataSource,
   ) { }
 
-  async create(createProductDto: CreateProductDto) {
+  async create( createProductDto: CreateProductDto, user: User ) {
     try {
       const { images = [], ...productDetails } = createProductDto;
 
       const product = await this.productRepository.create({
         ...productDetails,
-        images: images.map(url => this.productImageRepository.create({ url }))
+        images: images.map(url => this.productImageRepository.create({ url })),
+        user
       });
       return await this.productRepository.save(product);
     } catch (error) {
@@ -77,11 +80,11 @@ export class ProductsService {
     }
   }
 
-  async update(id: string, updateProductDto: UpdateProductDto) {
+  async update( id: string, updateProductDto: UpdateProductDto, user: User ) {
 
-    const { images = [], ...productToUpdate } = updateProductDto;
+    const { images, ...productToUpdate } = updateProductDto;
 
-    const product = await this.productRepository.preload({ id, ...productToUpdate });
+    const product = await this.productRepository.preload({ id, ...productToUpdate, user });
 
     const queryRunner = await this.dataSource.createQueryRunner();
     await queryRunner.connect();
@@ -101,6 +104,7 @@ export class ProductsService {
       await queryRunner.release();
 
     } catch (error) {
+      console.log(error)
 
       await queryRunner.rollbackTransaction();
       await queryRunner.release();
