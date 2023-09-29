@@ -10,6 +10,7 @@ import { SeedModule } from './seed/seed.module';
 import { FilesModule } from './files/files.module';
 import { AuthModule } from './auth/auth.module';
 // import { ServeStaticModule } from '@nestjs/serve-static';
+import { MessageWsModule } from './message-ws/message-ws.module';
 
 @Module({
   imports: [
@@ -32,7 +33,8 @@ import { AuthModule } from './auth/auth.module';
     CommonModule,
     SeedModule,
     FilesModule,
-    AuthModule
+    AuthModule,
+    MessageWsModule
   ],
 })
 export class AppModule { }

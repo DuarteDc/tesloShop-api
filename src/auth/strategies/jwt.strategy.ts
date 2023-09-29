@@ -14,7 +14,7 @@ import { JWTPayload } from '../interfaces/jwt-payload.interface';
 export class JWTStrategy extends PassportStrategy( Strategy ) {
 
     constructor(@InjectRepository( User ) private readonly userRepository: Repository<User>, configService: ConfigService) {
-        super( {
+        super({
             secretOrKey: configService.get('JWT_SECRET_KEY'),
             jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
         });
